@@ -1,35 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class VFXControl : MonoBehaviour
 {
     [SerializeField] GameObject _vfx;
-    [SerializeField] Camera mainCamera;
-    public GameObject sphere;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] VisualEffect _vfxComponent;
+    public void VFXEffect()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown (KeyCode.Space))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Obtenemos el rayo del mouse
+        RaycastHit hit; // Variable para guardar la informacion del rayo
+        if (Physics.Raycast(ray, out hit)) // Si el rayo colisiona con algo
         {
-            Instantiate(_vfx, transform.position, Quaternion.identity);
-        }
-
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if(Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if(Input.GetMouseButtonDown(0))
-            {
-                GameObject objeto3D = Instantiate(sphere, hit.point, Quaternion.Euler(90f, 0, 0));
-                objeto3D.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-                Instantiate(_vfx, hit.point, Quaternion.identity);
-            }
+            Instantiate(_vfx, hit.point, Quaternion.identity); // Instanciamos el efecto visual en la posición de la colisión
         }
     }
+
 }

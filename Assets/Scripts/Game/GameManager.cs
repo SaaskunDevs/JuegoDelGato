@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public GameObject X; // Prefab de la X
 
     int round = 0; // Ronda actual
+    bool winner = false; // Si hay un ganador
+
+    [SerializeField] VFXControl _vfxControl;
     void Start()
     {
         
@@ -21,30 +24,41 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) //Obtenemos el click del mouse
+        if (!winner) // Si ya hay un ganador no se hace nada
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Obtenemos el rayo del mouse
-            RaycastHit hit; // Variable para guardar la informacion del rayo
-            if (Physics.Raycast(ray,out hit)) // Si el rayo colisiona con algo buscamos con que boton colisiono
-            {
-                for (int i = 0; i < catButtons.Length; i++)
-                {
-                    if (hit.transform.name == catButtons[i].name)
-                    {
-                        int row = i / 3; // Obtiene la fila en la matriz
-                        int col = i % 3; // Obtiene la columna en la matriz
+            Winner(); // Revisamos quien gano
 
-                        if (round % 2 == 0)
+            if (Input.GetMouseButtonDown(0)) //Obtenemos el click del mouse
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Obtenemos el rayo del mouse
+                RaycastHit hit; // Variable para guardar la informacion del rayo
+                if (Physics.Raycast(ray,out hit)) // Si el rayo colisiona con algo buscamos con que boton colisiono
+                {
+                    for (int i = 0; i < catButtons.Length; i++)
+                    {
+                        if (hit.transform.name == catButtons[i].name)
                         {
-                            catGame[row, col] = "X";
-                            round++;
-                            Instantiate(X, catButtons[i].transform.position, Quaternion.Euler(-45f, -90f, -90f));
-                        }
-                        else
-                        {
-                            catGame[row, col] = "O";
-                            round++;
-                            Instantiate(O, catButtons[i].transform.position, Quaternion.identity);
+                            int row = i / 3; // Obtiene la fila en la matriz
+                            int col = i % 3; // Obtiene la columna en la matriz
+                            if (catGame[row, col] != "") // Si ya hay algo en esa posicion no se hace nada
+                            {
+                                Debug.Log("Ya hay algo ahi");
+                                return;
+                            }
+                            if (round % 2 == 0)
+                            {
+                                catGame[row, col] = "X";
+                                _vfxControl.VFXEffect();
+                                round++;
+                                Instantiate(X, catButtons[i].transform.position, Quaternion.Euler(-45f, -90f, -90f));
+                            }
+                            else
+                            {
+                                catGame[row, col] = "O";
+                                _vfxControl.VFXEffect();
+                                round++;
+                                Instantiate(O, catButtons[i].transform.position, Quaternion.identity);
+                            }
                         }
                     }
                 }
@@ -54,6 +68,45 @@ public class GameManager : MonoBehaviour
 
     void Winner ()
     {
-        
+        for (int i = 0; i < 3; i++)
+        {
+            // Verifica las filas
+            if (catGame[i, 0] != "" && catGame[i, 0] == catGame[i, 1] && catGame[i, 0] == catGame[i, 2])
+            {
+                Debug.Log("El ganador es " + catGame[i, 0]);
+                winner = true;
+                return;
+            }
+
+            // Verifica las columnas
+            if (catGame[0, i] != "" && catGame[0, i] == catGame[1, i] && catGame[0, i] == catGame[2, i])
+            {
+                Debug.Log("El ganador es " + catGame[0, i]);
+                winner = true;
+                return;
+            }
+        }
+
+        // Verifica la diagonal principal
+        if (catGame[0, 0] != "" && catGame[0, 0] == catGame[1, 1] && catGame[0, 0] == catGame[2, 2])
+        {
+            Debug.Log("El ganador es " + catGame[0, 0]);
+            winner = true;
+            return;
+        }
+
+        // Verifica la diagonal secundaria
+        if (catGame[0, 2] != "" && catGame[0, 2] == catGame[1, 1] && catGame[0, 2] == catGame[2, 0])
+        {
+            Debug.Log("El ganador es " + catGame[0, 2]);
+            winner = true;
+            return;
+        }
+
+        // Si no hay ganador
+        if (round == 9)
+        {
+            Debug.Log("El juego es un empate");
+        }
     }
 }

@@ -1037,6 +1037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1073142568}
   - component: {fileID: 1073142569}
+  - component: {fileID: 1073142570}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -1083,6 +1084,21 @@ MonoBehaviour:
   - {fileID: 317807033}
   O: {fileID: 5747921481167851303, guid: 30d500cd6dc9678429bc673eed80275b, type: 3}
   X: {fileID: 5940513284147779731, guid: 7e3bf7da0bd516040be7d0e2b184858b, type: 3}
+  _vfxControl: {fileID: 1073142570}
+--- !u!114 &1073142570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073142567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1716bcb7f584c3e44a5ffc823ac528e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vfx: {fileID: 3830026820683231113, guid: 777470bf43d9ae247bd1b771d9209fc1, type: 3}
+  _vfxComponent: {fileID: 0}
 --- !u!1 &1165881109
 GameObject:
   m_ObjectHideFlags: 0
