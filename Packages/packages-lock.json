@@ -1,5 +1,21 @@
 {
   "dependencies": {
+    "com.saaskunstudios.localconection": {
+      "version": "https://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:x-oauth-basic@github.com/SaaskunDevs/com.saaskunstudios.localconection.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.saaskunstudios.threaddispatcher": "1.0.0"
+      },
+      "hash": "3114fde916280b517ebef13435ccd13c73994dff"
+    },
+    "com.saaskunstudios.threaddispatcher": {
+      "version": "https://github.com/SaaskunDevs/com.saaskunstudios.threaddispatcher.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "904b3088463e3031a6f3673c5d338ec57b143b6a"
+    },
     "com.unity.burst": {
       "version": "1.8.12",
       "depth": 1,
