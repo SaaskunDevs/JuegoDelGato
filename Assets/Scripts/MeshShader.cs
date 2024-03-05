@@ -5,13 +5,13 @@ using UnityEngine;
 public class MeshShader : MonoBehaviour
 {
     [SerializeField] private MeshRenderer mesh;
-    private Material mat;
+    public Material mat;
     private float amount;
 
     private float actualTime;
     [SerializeField] private float appearTime = 2;
 
-    private bool animating = true;
+    private bool animating = false;
 
     void Start()
     {
@@ -21,17 +21,29 @@ public class MeshShader : MonoBehaviour
 
     void Update()
     {
-        if (!animating)
-            return;
-
-        actualTime += Time.deltaTime;
-        amount = Mathf.Lerp(0, 1, actualTime / appearTime);
-
-        if (actualTime > appearTime)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            amount = 1;
-            animating = false;
+            ActivateAnimation();
         }
-        mat.SetFloat("_Amount", amount);
+        if (animating)
+        {     
+            Debug.Log("Animating");
+            actualTime += Time.deltaTime;
+            amount = Mathf.Lerp(0, 1, actualTime / appearTime);
+
+            if (actualTime > appearTime)
+            {
+                amount = 1;
+                animating = false;
+            }
+            mat.SetFloat("_Amount", amount);
+        }
+    }
+
+    public void ActivateAnimation()
+    {
+        actualTime = 0;
+        animating = true;
+        Debug.Log("Activating animation");
     }
 }

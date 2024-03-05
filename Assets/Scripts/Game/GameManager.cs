@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Main Color")]
+    public Color mainColor1;
+    public Color mainColor2;
     [Header("Game Variables")]
     public int round = 0; // Ronda actual
     bool winner = false; // Si hay un ganador
@@ -18,11 +21,13 @@ public class GameManager : MonoBehaviour
     public GameObject O; // Prefab de la O
     public GameObject X; // Prefab de la X
     public GameObject XEffect; // Prefab del efecto visual de la X
+    public GameObject OEffect; // Prefab del efecto visual de la O
     public TextMeshProUGUI playerTurn; // Texto para mostrar el turno del jugador
 
     [Header("Scripts")]
     [SerializeField] VFXControl _vfxControl;
     [SerializeField] PopUpInformation _popUpInformation;
+    [SerializeField] TurnAnimation _turnAnimation;
 
     void Start()
     {
@@ -38,10 +43,12 @@ public class GameManager : MonoBehaviour
             if (round % 2 == 0) // Si el turno es par es el turno del jugador 1
             {
                 playerTurn.text = "Turno: X";
+                _turnAnimation.SwitchTurn("X");
             }
             else // Si el turno es impar es el turno del jugador 2
             {
                 playerTurn.text = "Turno: O";
+                _turnAnimation.SwitchTurn("O");
             }
             if (Input.GetMouseButtonDown(0)) //Obtenemos el click del mouse
             {
@@ -63,18 +70,20 @@ public class GameManager : MonoBehaviour
                             if (round % 2 == 0)
                             {
                                 catGame[row, col] = "X";
-                                //_vfxControl.VFXEffectX();
-                                _vfxControl.particleOn(round);
                                 round++;
-                                Instantiate(X, catButtons[i].transform.position, Quaternion.Euler(-45f, -90f, -90f));
+                                GameObject newX = Instantiate(X, catButtons[i].transform.position, Quaternion.Euler(0,0,45f));
                                 StartCoroutine(InstantiateXEffect(i, 1f));
+
+                                newX.GetComponent<MeshShader>().ActivateAnimation();
                             }
                             else
                             {
                                 catGame[row, col] = "O";
-                                //_vfxControl.VFXEffectO();
                                 round++;
-                                Instantiate(O, catButtons[i].transform.position, Quaternion.identity);
+                                GameObject newO = Instantiate(O, catButtons[i].transform.position, Quaternion.identity);
+                                StartCoroutine(InstanmiateOEffect(i, 1f));
+
+                                newO.GetComponent<MeshShader>().ActivateAnimation();
                             }
                         }
                     }
@@ -86,6 +95,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Instantiate(XEffect, catButtons[i].transform.position, Quaternion.identity);
+    }
+    IEnumerator InstanmiateOEffect(int i, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Instantiate(OEffect, catButtons[i].transform.position, Quaternion.identity);
     }
 
     void Winner ()
