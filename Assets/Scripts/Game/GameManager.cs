@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Main Color")]
-    public Color mainColor1;
-    public Color mainColor2;
     [Header("Game Variables")]
     public int round = 0; // Ronda actual
     bool winner = false; // Si hay un ganador
@@ -25,7 +22,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI playerTurn; // Texto para mostrar el turno del jugador
 
     [Header("Scripts")]
-    [SerializeField] VFXControl _vfxControl;
     [SerializeField] PopUpInformation _popUpInformation;
     [SerializeField] TurnAnimation _turnAnimation;
 

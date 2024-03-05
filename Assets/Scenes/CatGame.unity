@@ -1761,7 +1761,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1073142568}
   - component: {fileID: 1073142569}
-  - component: {fileID: 1073142570}
   - component: {fileID: 1073142571}
   - component: {fileID: 1073142572}
   m_Layer: 0
@@ -1798,8 +1797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d483b659b22f7614090afe2ddf838669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainColor1: {r: 1, g: 0, b: 0, a: 0}
-  mainColor2: {r: 0, g: 0.24008727, b: 1, a: 0}
   round: 0
   catButtons:
   - {fileID: 1464344298}
@@ -1816,26 +1813,8 @@ MonoBehaviour:
   XEffect: {fileID: 3830026820683231113, guid: 777470bf43d9ae247bd1b771d9209fc1, type: 3}
   OEffect: {fileID: 3705938936493730202, guid: fa1af28af9ce53e4da8956b3059870e1, type: 3}
   playerTurn: {fileID: 1902666048}
-  _vfxControl: {fileID: 1073142570}
   _popUpInformation: {fileID: 1073142571}
   _turnAnimation: {fileID: 1073142572}
---- !u!114 &1073142570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073142567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1716bcb7f584c3e44a5ffc823ac528e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameManager: {fileID: 1073142569}
-  _vfx: {fileID: 3830026820683231113, guid: 777470bf43d9ae247bd1b771d9209fc1, type: 3}
-  _vfx2: {fileID: 3705938936493730202, guid: fa1af28af9ce53e4da8956b3059870e1, type: 3}
-  _material: {fileID: 2100000, guid: 4d6d296dd60465949b6146ea1802ed95, type: 2}
-  amountIncrement: 0.6
 --- !u!114 &1073142571
 MonoBehaviour:
   m_ObjectHideFlags: 0
