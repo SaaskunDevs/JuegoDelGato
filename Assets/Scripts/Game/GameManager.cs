@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [Header("Game Variables")]
-    int round = 0; // Ronda actual
+    public int round = 0; // Ronda actual
     bool winner = false; // Si hay un ganador
     public string[,] catGame  = new string[,]{  {"", "", ""}, // Matriz de 3x3 para el gato
                                                 {"", "", ""}, 
@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject O; // Prefab de la O
     public GameObject X; // Prefab de la X
+    public GameObject XEffect; // Prefab del efecto visual de la X
     public TextMeshProUGUI playerTurn; // Texto para mostrar el turno del jugador
 
     [Header("Scripts")]
@@ -62,14 +63,16 @@ public class GameManager : MonoBehaviour
                             if (round % 2 == 0)
                             {
                                 catGame[row, col] = "X";
-                                _vfxControl.VFXEffectX();
+                                //_vfxControl.VFXEffectX();
+                                _vfxControl.particleOn(round);
                                 round++;
                                 Instantiate(X, catButtons[i].transform.position, Quaternion.Euler(-45f, -90f, -90f));
+                                StartCoroutine(InstantiateXEffect(i, 1f));
                             }
                             else
                             {
                                 catGame[row, col] = "O";
-                                _vfxControl.VFXEffectO();
+                                //_vfxControl.VFXEffectO();
                                 round++;
                                 Instantiate(O, catButtons[i].transform.position, Quaternion.identity);
                             }
@@ -78,6 +81,11 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+    IEnumerator InstantiateXEffect(int i,float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Instantiate(XEffect, catButtons[i].transform.position, Quaternion.identity);
     }
 
     void Winner ()
@@ -98,7 +106,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("El ganador es " + catGame[0, i]);
                 winner = true;
-                _popUpInformation.PopUpWinner("¡Felicidades!", "Jugador: \n\n" + catGame[i, 0].ToString());
+                _popUpInformation.PopUpWinner("¡Felicidades!", "Jugador: \n\n" + catGame[0, i].ToString());
                 return;
             }
         }
