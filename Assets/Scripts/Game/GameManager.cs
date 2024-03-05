@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
                                 catGame[row, col] = "X";
                                 round++;
                                 GameObject newX = Instantiate(X, catButtons[i].transform.position, Quaternion.Euler(0,0,45f));
-                                StartCoroutine(InstantiateXEffect(i, 1f));
+                                StartCoroutine(InstantiateXEffect(i, .7f));
 
                                 newX.GetComponent<MeshShader>().ActivateAnimation();
                             }
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
                                 catGame[row, col] = "O";
                                 round++;
                                 GameObject newO = Instantiate(O, catButtons[i].transform.position, Quaternion.identity);
-                                StartCoroutine(InstanmiateOEffect(i, 1f));
+                                StartCoroutine(InstanmiateOEffect(i, .7f));
 
                                 newO.GetComponent<MeshShader>().ActivateAnimation();
                             }

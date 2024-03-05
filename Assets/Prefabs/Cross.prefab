@@ -129,4 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 1180611885500218955}
+  mat: {fileID: 0}
   appearTime: 1
+  colores: 1
+  _amountYN: 3
