@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f65ee9cc15cd24eb9c880fe70713ac, type: 3}
+  m_Name: I1
+  m_EditorClassIdentifier: 
+  tilte: Deporte de combate
+  info: "En estos deportes, que son de contacto, los oponentes se enfrentan entre
+    s\xED para alcanzarse o derribarse mutuamente. \nPara esto, utilizan t\xE9cnicas
+    como el golpe, el agarre y las armas. \n\nEn esta categor\xEDa se ubican la esgrima,
+    el boxeo y las artes marciales mixtas, entre otros."

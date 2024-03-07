@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f65ee9cc15cd24eb9c880fe70713ac, type: 3}
+  m_Name: I0
+  m_EditorClassIdentifier: 
+  tilte: Deporte de Pelota
+  info: "La pelota cobra tal importancia que los integrantes se concentran m\xE1s
+    en esta que en los jugadores del equipo contrario y es en base a esta que las
+    jugadas se clasifican en defensivas u ofensivas. Algunos de los deportes que
+    pueden mencionarse dentro de esta categor\xEDa son tenis, f\xFAtbol, b\xE1squet,
+    v\xF3ley y h\xE1ndbol, entre otros."
