@@ -33,6 +33,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R)) // Si se presiona la tecla R se reinicia el juego
+        {
+            createIcon(0, "X");
+        }
+        if (Input.GetKeyDown(KeyCode.T)) // Si se presiona la tecla T se reinicia el juego
+        {
+            createIcon(3, "O");
+        }
         if (!winner) // Si ya hay un ganador no se hace nada
         {
             Winner(); // Revisamos quien gano
@@ -45,45 +53,6 @@ public class GameManager : MonoBehaviour
             {
                 playerTurn.text = "Turno: O";
                 _turnAnimation.SwitchTurn("O");
-            }
-            if (Input.GetMouseButtonDown(0)) //Obtenemos el click del mouse
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Obtenemos el rayo del mouse
-                RaycastHit hit; // Variable para guardar la informacion del rayo
-                if (Physics.Raycast(ray,out hit)) // Si el rayo colisiona con algo buscamos con que boton colisiono
-                {
-                    for (int i = 0; i < catButtons.Length; i++)
-                    {
-                        if (hit.transform.name == catButtons[i].name)
-                        {
-                            int row = i / 3; // Obtiene la fila en la matriz
-                            int col = i % 3; // Obtiene la columna en la matriz
-                            if (catGame[row, col] != "") // Si ya hay algo en esa posicion no se hace nada
-                            {
-                                Debug.Log("Ya hay algo ahi");
-                                return;
-                            }
-                            if (round % 2 == 0)
-                            {
-                                catGame[row, col] = "X";
-                                round++;
-                                GameObject newX = Instantiate(X, catButtons[i].transform.position, Quaternion.Euler(0,0,45f));
-                                StartCoroutine(InstantiateXEffect(i, .7f));
-
-                                newX.GetComponent<MeshShader>().ActivateAnimation();
-                            }
-                            else
-                            {
-                                catGame[row, col] = "O";
-                                round++;
-                                GameObject newO = Instantiate(O, catButtons[i].transform.position, Quaternion.identity);
-                                StartCoroutine(InstanmiateOEffect(i, .7f));
-
-                                newO.GetComponent<MeshShader>().ActivateAnimation();
-                            }
-                        }
-                    }
-                }
             }
         }
     }
@@ -145,5 +114,37 @@ public class GameManager : MonoBehaviour
             Debug.Log("El juego es un empate");
             _popUpInformation.PopUpWinner("Lastima", "Quedaron Empates");
         }
+    }
+    public void createIcon(int indexChoosen, string emblem)
+    {
+            int i = indexChoosen; // Obtiene el indice del boton presionado
+            if (i >= 0 && i < catButtons.Length) // Si el indice esta dentro del rango de la matriz (3x3
+            {
+                int row = i / 3; // Obtiene la fila en la matriz
+                int col = i % 3; // Obtiene la columna en la matriz
+                if (catGame[row, col] != "") // Si ya hay algo en esa posicion no se hace nada
+                {
+                    Debug.Log("Ya hay algo ahi");
+                    return;
+                }
+                if (emblem == "X")
+                {
+                    catGame[row, col] = "X";
+                    round++;
+                    GameObject newX = Instantiate(X, catButtons[i].transform.position, Quaternion.Euler(0,0,45f));
+                    StartCoroutine(InstantiateXEffect(i, .7f));
+
+                    newX.GetComponent<MeshShader>().ActivateAnimation();
+                }
+                else
+                {
+                    catGame[row, col] = "O";
+                    round++;
+                    GameObject newO = Instantiate(O, catButtons[i].transform.position, Quaternion.identity);
+                    StartCoroutine(InstanmiateOEffect(i, .7f));
+
+                    newO.GetComponent<MeshShader>().ActivateAnimation();
+                }
+            }
     }
 }
