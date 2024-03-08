@@ -1,9 +1,14 @@
+using Saaskun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ControlAll : MonoBehaviour
 {
+
+    [SerializeField] private UDP_Sender sender;
+    private int port = 8080;
+
     ControllerManager _controllerManager;
     PopUpInformation _popUpInformation;
     GameManager _gameManager;
@@ -34,14 +39,17 @@ public class ControlAll : MonoBehaviour
             case "Btn":
                 Debug.Log(positionIndex);
                 Debug.Log(emblem);
+                sender.SendData("Target", positionIndex.ToString() + "*" + emblem, port);
                 //_gameManager.createIcon(positionIndex, emblem);
                 break;
             case "EmpezarJuego":
                 Debug.Log("Change Player Turn");
+                sender.SendData("GameManager", "StartGame", port);
                 break;
             case "Reset":
                 _popUpInformation.ResetAll();
                 Debug.Log("Reset Game");
+                sender.SendData("GameManager", "RestartGame", port);
                 break;
             default:
                 Debug.Log("No action found");

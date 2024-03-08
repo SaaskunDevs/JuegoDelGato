@@ -33,14 +33,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) // Si se presiona la tecla R se reinicia el juego
-        {
-            createIcon(0, "X");
-        }
-        if (Input.GetKeyDown(KeyCode.T)) // Si se presiona la tecla T se reinicia el juego
-        {
-            createIcon(3, "O");
-        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) // Si se presiona la tecla T se reinicia el juego
+            CreateIcon(0, "X");
+        if (Input.GetKeyDown(KeyCode.Alpha2)) // Si se presiona la tecla T se reinicia el juego
+            CreateIcon(1, "X");
+        if (Input.GetKeyDown(KeyCode.Alpha3)) // Si se presiona la tecla T se reinicia el juego
+            CreateIcon(2, "O");
+
         if (!winner) // Si ya hay un ganador no se hace nada
         {
             Winner(); // Revisamos quien gano
@@ -115,7 +115,14 @@ public class GameManager : MonoBehaviour
             _popUpInformation.PopUpWinner("Lastima", "Quedaron Empates");
         }
     }
-    public void createIcon(int indexChoosen, string emblem)
+
+    public void AddTarget(string data)
+    {
+        string[] split = data.Split("*");
+        CreateIcon(int.Parse(split[0]), split[1]);
+    }
+
+    public void CreateIcon(int indexChoosen, string emblem)
     {
             int i = indexChoosen; // Obtiene el indice del boton presionado
             if (i >= 0 && i < catButtons.Length) // Si el indice esta dentro del rango de la matriz (3x3
