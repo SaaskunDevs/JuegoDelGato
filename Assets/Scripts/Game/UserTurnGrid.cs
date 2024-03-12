@@ -21,6 +21,13 @@ public class UserTurnGrid : MonoBehaviour
 
     public bool animating;
 
+    private void Start()
+    {
+        gridMat.SetColor("_MainColor", team1Color);
+        actualChangecolor = team1Color;
+        targetIndex = 0;
+    }
+
     private void Update()
     {
         if(animating)
@@ -55,10 +62,11 @@ public class UserTurnGrid : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Funcion de animacion
+    /// </summary>
     void AnimateColorGrid()
     {
-
-
         if (targetIndex == 0)
         {
             actualTime += Time.deltaTime;
