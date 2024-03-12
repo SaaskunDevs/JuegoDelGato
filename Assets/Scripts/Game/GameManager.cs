@@ -41,20 +41,13 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) // Si se presiona la tecla T se reinicia el juego
             CreateIcon(2, "O");
 
+        /*
         if (!winner) // Si ya hay un ganador no se hace nada
         {
             Winner(); // Revisamos quien gano
-            if (round % 2 == 0) // Si el turno es par es el turno del jugador 1
-            {
-                playerTurn.text = "Turno: X";
-                _turnAnimation.SwitchTurn("X");
-            }
-            else // Si el turno es impar es el turno del jugador 2
-            {
-                playerTurn.text = "Turno: O";
-                _turnAnimation.SwitchTurn("O");
-            }
+            
         }
+        */
     }
     IEnumerator InstantiateXEffect(int i,float delay)
     {
@@ -152,6 +145,16 @@ public class GameManager : MonoBehaviour
 
                     newO.GetComponent<MeshShader>().ActivateAnimation();
                 }
+            if (round % 2 == 0) // Si el turno es par es el turno del jugador 1
+            {
+                playerTurn.text = "Turno: X";
+                _turnAnimation.SwitchTurn("X");
             }
+            else // Si el turno es impar es el turno del jugador 2
+            {
+                playerTurn.text = "Turno: O";
+                _turnAnimation.SwitchTurn("O");
+            }
+        }
     }
 }

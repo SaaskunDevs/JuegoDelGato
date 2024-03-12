@@ -57,13 +57,7 @@ public class UserTurnGrid : MonoBehaviour
 
     void AnimateColorGrid()
     {
-        /*
-        if(changeActuaTime > 0)
-        {
-            actualTime = changeActuaTime;
-            changeActuaTime = 0;
-        }
-        */
+
 
         if (targetIndex == 0)
         {
