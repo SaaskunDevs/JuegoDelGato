@@ -33,11 +33,6 @@ public class UserTurnGrid : MonoBehaviour
         if(animating)
             AnimateColorGrid();
 
-        if (Input.GetKeyDown(KeyCode.J))
-            ChangeTeam(0);
-        if (Input.GetKeyDown(KeyCode.K))
-            ChangeTeam(1);
-
     }
 
     /// <summary>
@@ -46,6 +41,9 @@ public class UserTurnGrid : MonoBehaviour
     /// <param name="index"></param>
     public void ChangeTeam(int index)
     {
+
+        Debug.Log("Change team " + index);
+
         if (targetIndex == index)
             return;
 

@@ -1,6 +1,4 @@
 using Saaskun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ControlAll : MonoBehaviour
@@ -40,16 +38,19 @@ public class ControlAll : MonoBehaviour
                 Debug.Log(positionIndex);
                 Debug.Log(emblem);
                 sender.SendData("Target", positionIndex.ToString() + "*" + emblem, port);
-                //_gameManager.createIcon(positionIndex, emblem);
+                
                 break;
-            case "EmpezarJuego":
-                Debug.Log("Change Player Turn");
+            case "StartGame":
+                Debug.Log("Start Game");
                 sender.SendData("GameManager", "StartGame", port);
                 break;
-            case "Reset":
-                _popUpInformation.ResetAll();
-                Debug.Log("Reset Game");
+            case "Restart":
+                Debug.Log("Restart");
                 sender.SendData("GameManager", "RestartGame", port);
+                break;
+            case "Claim":
+                Debug.Log("Claim");
+                sender.SendData("GameManager", "Claim", port);
                 break;
             default:
                 Debug.Log("No action found");

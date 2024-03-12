@@ -1,64 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PopUpInformation : MonoBehaviour
 {
     [Header("PopUps GameObjects")]
     [SerializeField] GameObject _popUpWinner;
+    [SerializeField] GameObject _popUpEquals;
     [SerializeField] GameObject _popUpInformatio;
 
-    [Header("Pop Up Info Things")]
-    [SerializeField] TextMeshProUGUI _titleTxt;
-    [SerializeField] TextMeshProUGUI _infoText;
 
-    [Header("Winner Texts")]
-    [SerializeField] GameObject _textTurn;
-    [SerializeField] TextMeshProUGUI _titleText;
-    [SerializeField] TextMeshProUGUI _winnerText;
-    
-    [Header("SOInfo")]
-    [SerializeField] InfoSO[] _infoSO;
+    [SerializeField] private Image winnerImg;
+    [SerializeField] private Sprite xSprite;
+    [SerializeField] private Sprite oSprite;
 
-    void Update()
+
+    public void PopUpWinner(string winnerName)
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ChooseInfo();
-            _popUpInformatio.SetActive(true);
-            Invoke("ClosePopUpInfo", 3);
-        }
+        if(winnerName == "X")
+            winnerImg.sprite = xSprite;
+        else
+            winnerImg.sprite = oSprite;
+
+        Invoke("ShowPopUpWinner", 5);
+        Invoke("ShowClaim", 8);
     }
-    public void PopUpWinner(string titleInfo ,string winnerName)
+
+    public void PopUpEquals()
     {
-        _titleText.text = titleInfo;
-        _winnerText.text = winnerName;
-        Invoke("ShowPopUpWinner", 3);
-        
+
+        Invoke("ShowPopUpEquals", 1);
+        Invoke("ShowClaim", 6);
     }
+
     void ShowPopUpWinner()
     {
         _popUpWinner.SetActive(true);
-        _textTurn.SetActive(false);
+    }
+
+    void ShowPopUpEquals()
+    {
+        _popUpEquals.SetActive(true);
+    }
+
+    public void ShowClaim()
+    {
+        _popUpInformatio.SetActive(true);
     }
 
     public void ChooseInfo()
     {
         _popUpInformatio.SetActive(true);
-        int index = Random.Range(0, _infoSO.Length);
-
-        _titleTxt.text = _infoSO[index].tilte;
-        _infoText.text = _infoSO[index].info;
     }
 
-    public void ClosePopUpInfo()
-    {
-        _popUpInformatio.SetActive(false);
-    }
-    public void ResetAll()
-    {
-        SceneManager.LoadScene(0);
-    }
 }

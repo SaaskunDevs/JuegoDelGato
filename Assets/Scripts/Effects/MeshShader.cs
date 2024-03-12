@@ -26,7 +26,6 @@ public class MeshShader : MonoBehaviour
     {
         if (animating)
         {     
-            Debug.Log("Animating");
             actualTime += Time.deltaTime;
             amount = Mathf.Lerp(0, 1, actualTime / appearTime);
             

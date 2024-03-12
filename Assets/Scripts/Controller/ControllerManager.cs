@@ -1,16 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ControllerManager : MonoBehaviour
 {
-    [SerializeField] Color _colorSelected;
-    [SerializeField] Color _colorUnselected;
 
     [Header("Sprites")]
     [SerializeField] Sprite _xSprite;
@@ -20,9 +16,7 @@ public class ControllerManager : MonoBehaviour
     [Header("GameObjects")]
     [SerializeField] TextMeshProUGUI _txtPlayerTurn;
     [SerializeField] Button[] _buttonsCat;
-    [SerializeField] Button[] _btnPlayerTurn;
     [SerializeField] Button[] _btnStartResetOmitGame;
-    [SerializeField] Button _btnChangeTurn;
 
     [Header("Scripts")]
     ControlAll _controlAll;
@@ -32,76 +26,43 @@ public class ControllerManager : MonoBehaviour
     public bool buttonClicked = false;
     string playerTurn;
 
+    private bool started;
+
     void Start()
     {
         _controlAll = GetComponent<ControlAll>();
         _currentSprite = _xSprite;
+        playerTurn = "X";
 
         foreach (var button in _buttonsCat)
         {
             button.onClick.AddListener(() => OnClickButton(button));
         }
-        foreach (var button in _btnPlayerTurn)
-        {
-            button.onClick.AddListener(() => ChangePlayerTurn(button));
-        }
+
         foreach (var button in _btnStartResetOmitGame)
         {
-            button.onClick.AddListener(() => StartResetOmitGame(button));
+            button.onClick.AddListener(() => GameplayBtn(button));
         }
 
-        _btnChangeTurn.onClick.AddListener(activateTurns);
     }
 
-    void Update()
-    {
-        if (!buttonClicked)
-        {
-            if (round % 2 == 0) // Si el turno es par es el turno del jugador 1
-            {
-                _txtPlayerTurn.text = "Turno del Jugador:\nX";
-                _currentSprite = _xSprite;
-            }
-            else // Si el turno es impar es el turno del jugador 2
-            {
-                _txtPlayerTurn.text = "Turno del Jugador:\nO";
-                _currentSprite = _oSprite;
-            }
-        }
-        
-    }
+
     void OnClickButton(Button button)
     {
+        if (!started)
+            return;
+
         BtnValues btnValues = button.GetComponent<BtnValues>();
         if (btnValues._value == "")
             btnValues.BtnValue(_currentSprite.name);
         else
             return;
 
-        Debug.Log("Button Clicked - " + button.name);
-        button.image.sprite = _currentSprite;
         round++;
-
-        // Verificar qué sprite se colocó
-        if (_currentSprite.name.StartsWith("cross"))
-        {
-            Debug.Log("Se colocó una X");
-            playerTurn = "X";
-        }
-        if (_currentSprite.name.StartsWith("Circle"))
-        {
-            Debug.Log("Se colocó una O");
-            playerTurn = "O";
-        }
-
-        Debug.Log(button.name + "_" + playerTurn); //Btn_4_O
+        button.image.sprite = _currentSprite;
         _controlAll.ControlAllThings(button.name + "_" + playerTurn);
+        CheckTurn();
 
-        //  // Enviar datos a través de UDP
-        // string code = "ButtonClicked";
-        // string message = button.name;
-        // int port = 1900; // Reemplaza esto con el puerto al que deseas enviar los datos
-        // _udpSender.SendData(code, message, port);
     }
 
     public void ChangePlayerTurn(Button button)
@@ -119,59 +80,59 @@ public class ControllerManager : MonoBehaviour
         }
     }
 
-    void StartResetOmitGame(Button button)
+    void GameplayBtn(Button button)
     {
         switch (button.name)
         {
             case "Btn_StartGame":
-                //Inicio del juego
+                StartGame();
                 break;
             case "Btn_Reset":
                 ResetAll();
                 break;
             case "Btn_Omitir":
                 round++;
+                CheckTurn();
+                _controlAll.ControlAllThings(playerTurn);
+                break;
+            case "Btn_Claim":
+                Claim();
                 break;
         }
     }
 
-    public void ResetAll()
+    void StartGame()
     {
-        //_controlAll.ControlAllThings("Reset");
+        started = true;
+        _controlAll.ControlAllThings("StartGame");
+    }
+
+    void CheckTurn()
+    {
+        if (round % 2 == 0) // Si el turno es par es el turno del jugador 1
+        {
+            playerTurn = "X";
+            _txtPlayerTurn.text = "X";
+            _currentSprite = _xSprite;
+        }
+        else // Si el turno es impar es el turno del jugador 2
+        {
+            playerTurn = "O";
+            _txtPlayerTurn.text = "O";
+            _currentSprite = _oSprite;
+        }
+    }
+
+    void Claim()
+    {
+        _controlAll.ControlAllThings("Claim");
+    }
+
+    void ResetAll()
+    {
+        _controlAll.ControlAllThings("Restart");
         SceneManager.LoadScene(0);
     }
 
-    public void activateTurns()
-    {
-        buttonClicked = !buttonClicked;
 
-        if(buttonClicked)
-        {
-            SelectOmitir();
-            _btnChangeTurn.GetComponent<Image>().color = _colorSelected;
-            _btnChangeTurn.GetComponentInChildren<TextMeshProUGUI>().text = "Activado";
-        }
-        else
-        {
-            UnselectOmitir();
-            _btnChangeTurn.GetComponent<Image>().color = _colorUnselected;
-            _btnChangeTurn.GetComponentInChildren<TextMeshProUGUI>().text = "Desactivado";
-        }
-    }
-    void SelectOmitir()
-    {
-        Debug.Log("Select Omitir");
-        foreach (var button in _btnPlayerTurn)
-        {
-            button.interactable = true;
-        }
-    }
-    void UnselectOmitir()
-    {
-        Debug.Log("Unselect Omitir");
-        foreach (var button in _btnPlayerTurn)
-        {
-            button.interactable = false;
-        }
-    }
 }

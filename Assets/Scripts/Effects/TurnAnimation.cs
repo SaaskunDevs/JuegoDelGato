@@ -5,9 +5,7 @@ using UnityEngine;
 public class TurnAnimation : MonoBehaviour
 {
     [SerializeField] private UserTurnGrid userTurnGrid;
-    [SerializeField] GameObject _xPrefab;
-    [SerializeField] GameObject _oPrefab;
-    [SerializeField] GameObject[] _movementPrefabs;
+    //[SerializeField] GameObject[] _movementPrefabs;
     float floating;
 
     void Start()
@@ -21,26 +19,16 @@ public class TurnAnimation : MonoBehaviour
         // _xPrefab.transform.position = new Vector3(_xPrefab.transform.position.x, _xPrefab.transform.position.y + floating, _xPrefab.transform.position.z);
         // _oPrefab.transform.position = new Vector3(_oPrefab.transform.position.x, _oPrefab.transform.position.y + floating, _oPrefab.transform.position.z);
 
+        /*
         for (int i = 0; i < _movementPrefabs.Length; i++)
         {
             _movementPrefabs[i].transform.position = new Vector3(_movementPrefabs[i].transform.position.x, _movementPrefabs[i].transform.position.y + floating, _movementPrefabs[i].transform.position.z);
         }
+        */
     }
     public void SwitchTurn(string turn)
     {
-        switch (turn)
-        {
-            case "X":
-               // userTurnGrid.ChangeTeam(0);
-                UnScaling(_oPrefab, 0f, 0.5f); // Escala  a 0 durante 0.5 segundos
-                StartScaling(_xPrefab, 1f, 0.5f); // Escala  a 1 durante 0.5 segundos
-                break;
-            case "O":
-              //  userTurnGrid.ChangeTeam(1);
-                UnScaling(_xPrefab, 0f, 0.5f); // Escala  a 0 durante 0.5 segundos
-                StartScaling(_oPrefab, 1f, 0.5f); // Escala  a 1 durante 0.5 segundos
-                break;
-        }
+     
     }
 
     public void StartScaling(GameObject obj, float targetScale, float duration)

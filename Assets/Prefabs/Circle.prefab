@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.8979, y: 4.8979, z: 4.8979}
+  m_LocalScale: {x: 9.825284, y: 9.825284, z: 9.825284}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7831338768317967015}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 6762512346960271154}
-  mat: {fileID: 0}
+  mat: {fileID: 2100000, guid: 4d6d296dd60465949b6146ea1802ed95, type: 2}
   appearTime: 1
   colores: 2
   _amountYN: 3
