@@ -105,8 +105,10 @@ public class GameManager : MonoBehaviour
             _popUpInformation.PopUpEquals();
         }
 
+        /*
         if (!winner && round == roundToClaim)
             _popUpInformation.ShowClaim();
+        */
     }
 
     void GetWinnerPositions(string type, int index)
