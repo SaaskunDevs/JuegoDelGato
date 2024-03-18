@@ -114,12 +114,14 @@ public class ControllerManager : MonoBehaviour
             playerTurn = "X";
             _txtPlayerTurn.text = "X";
             _currentSprite = _xSprite;
+            _controlAll.ControlAllThings("Jump_X");
         }
         else // Si el turno es impar es el turno del jugador 2
         {
             playerTurn = "O";
             _txtPlayerTurn.text = "O";
             _currentSprite = _oSprite;
+            _controlAll.ControlAllThings("Jump_O");
         }
     }
 

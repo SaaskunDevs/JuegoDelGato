@@ -1316,8 +1316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 1073142576}
-  round: 0
   roundToClaim: 4
+  round: 0
   catButtons:
   - {fileID: 1464344298}
   - {fileID: 10555219}
@@ -1418,6 +1418,22 @@ MonoBehaviour:
         - m_Target: {fileID: 1073142569}
           m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
           m_MethodName: GameManagerDataEntered
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - code: Omitir
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1073142569}
+          m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+          m_MethodName: CheckPlayer
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

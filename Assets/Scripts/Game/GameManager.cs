@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UiManager uiManager;
 
     [Header("Game Variables")]
-    public int round = 0; // Ronda actual
     public int roundToClaim = 4;
+    public int round = 0; // Ronda actual
 
     bool winner = false; // Si hay un ganador
     public string[,] catGame  = new string[,]{  {"", "", ""}, // Matriz de 3x3 para el gato
@@ -98,12 +98,12 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // Si no hay ganador
-        if (round == 9)
-        {
-            Debug.Log("El juego es un empate");
-            _popUpInformation.PopUpEquals();
-        }
+        // // Si no hay ganador
+        // if (round == 9)
+        // {
+        //     Debug.Log("El juego es un empate");
+        //     _popUpInformation.PopUpEquals();
+        // }
 
         /*
         if (!winner && round == roundToClaim)
@@ -170,6 +170,14 @@ public class GameManager : MonoBehaviour
         line.GetLinePos(pos0, pos1);
     }
 
+    public void CheckPlayer(string data)
+    {
+
+        string[] ply = data.Split("*");
+
+        GameManagerDataEntered(ply[1]);
+    }
+
     public void AddTarget(string data)
     {
 
@@ -191,8 +199,8 @@ public class GameManager : MonoBehaviour
             }
             if (emblem == "X")
             {
-                catGame[row, col] = "X";
                 round++;
+                catGame[row, col] = "X";
                 GameObject newX = Instantiate(X, catButtons[i].transform.position, Quaternion.identity);
                 StartCoroutine(InstantiateXEffect(i, .7f));
 
@@ -200,25 +208,27 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                catGame[row, col] = "O";
                 round++;
+                catGame[row, col] = "O";
                 GameObject newO = Instantiate(O, catButtons[i].transform.position, Quaternion.identity);
                 StartCoroutine(InstanmiateOEffect(i, .7f));
 
                 newO.GetComponent<MeshShader>().ActivateAnimation();
             }
-            if (round % 2 == 0) // Si el turno es par es el turno del jugador 1
-            {
-                playerTurn.text = "Turno: X";
-                _turnAnimation.SwitchTurn("X");
-                turnGrid.ChangeTeam(0);
-            }
-            else // Si el turno es impar es el turno del jugador 2
-            {
-                playerTurn.text = "Turno: O";
-                _turnAnimation.SwitchTurn("O");
-                turnGrid.ChangeTeam(1);
-            }
+
+            
+            // if (round % 2 == 0) // Si el turno es par es el turno del jugador 1
+            // {
+            //     playerTurn.text = "Turno: X";
+            //     _turnAnimation.SwitchTurn("X");
+            //     turnGrid.ChangeTeam(0);
+            // }
+            // else // Si el turno es impar es el turno del jugador 2
+            // {
+            //     playerTurn.text = "Turno: O";
+            //     _turnAnimation.SwitchTurn("O");
+            //     turnGrid.ChangeTeam(1);
+            // }
 
             
         }
@@ -243,9 +253,11 @@ public class GameManager : MonoBehaviour
                 break;
             case "X":
                 turnGrid.ChangeTeam(0);
+                _turnAnimation.SwitchTurn("X");
                 break;
             case "O":
                 turnGrid.ChangeTeam(1);
+                _turnAnimation.SwitchTurn("O");
                 break;
             default:
                 break;

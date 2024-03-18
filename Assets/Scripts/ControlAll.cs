@@ -12,6 +12,7 @@ public class ControlAll : MonoBehaviour
     GameManager _gameManager;
     public int positionIndex;
     string emblem;
+    string playerTurns;
     void Start()
     {
         _controllerManager = GetComponent<ControllerManager>();
@@ -30,6 +31,16 @@ public class ControlAll : MonoBehaviour
                 emblem = parts[2]; // Obtiene el valor que se encuentra después del segundo '_'
             }
             doSomething = "Btn";
+        }
+
+        if (doSomething.StartsWith("Jump_"))
+        {
+            string[] parts = doSomething.Split('_');
+            if (parts.Length >= 1)
+            {
+                playerTurns = parts[1]; // Obtiene el valor que se encuentra después del primer '_'
+            }
+            doSomething = "Omitir";
         }
 
         switch (doSomething)
@@ -53,7 +64,7 @@ public class ControlAll : MonoBehaviour
                 sender.SendData("GameManager", "Claim", port);
                 break;
             case "Omitir":
-                sender.SendData("GameManager", "Omit", port);
+                sender.SendData("Omitir", "Omit" + "*" + playerTurns, port);
                 break;
             default:
                 Debug.Log("No action found");
