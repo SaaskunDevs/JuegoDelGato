@@ -8,6 +8,11 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject masterGraphicGO;
     [SerializeField] private GameObject claimGO;
 
+    private void Start()
+    {
+        Cursor.visible = false;
+    }
+
     public void StartGame()
     {
         ShowClaim();
