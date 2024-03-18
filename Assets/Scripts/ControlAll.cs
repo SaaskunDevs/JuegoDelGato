@@ -52,6 +52,9 @@ public class ControlAll : MonoBehaviour
                 Debug.Log("Claim");
                 sender.SendData("GameManager", "Claim", port);
                 break;
+            case "Omitir":
+                sender.SendData("GameManager", "Omit", port);
+                break;
             default:
                 Debug.Log("No action found");
                 break;

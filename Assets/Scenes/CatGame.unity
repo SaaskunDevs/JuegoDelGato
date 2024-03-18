@@ -1317,6 +1317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 1073142576}
   round: 0
+  roundToClaim: 4
   catButtons:
   - {fileID: 1464344298}
   - {fileID: 10555219}
@@ -1735,7 +1736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1333307000
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2211,7 +2212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1623772407
 RectTransform:
   m_ObjectHideFlags: 0
